@@ -89,26 +89,9 @@ public class Reservation_frag extends Fragment {
 
                 Log.d("result",reservation.toString());
 
-
-
-            }
-        });
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-               // String value = dataSnapshot.getValue(String.class);
-               // Log.d("resultat", "Value is: " + value);
                 Toast toast = Toast.makeText(getContext(),"Resevation transmise",Toast.LENGTH_LONG);
                 toast.show();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("resultat", "Failed to read value.", error.toException());
             }
         });
 

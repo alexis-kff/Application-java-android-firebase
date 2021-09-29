@@ -12,8 +12,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class StartActivity extends AppCompatActivity {
 
-   FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
+  // FirebaseDatabase database = FirebaseDatabase.getInstance();
+  //  DatabaseReference myRef = database.getReference("message");
 
 
    Button ebutton;
@@ -23,11 +23,16 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         ebutton = findViewById(R.id.button);
-       myRef.setValue("Hello, World!");
+   //    myRef.setValue("Hello, World!");
     }
 
     public void accesRapide(View view) {
         Intent i = new Intent(this,Base.class);
+        startActivity(i);
+    }
+
+    public void accesAdmin(View view) {
+        Intent i = new Intent(this,ListReservationAdmin.class);
         startActivity(i);
     }
 }

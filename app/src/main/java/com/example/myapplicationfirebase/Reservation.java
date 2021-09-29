@@ -10,6 +10,8 @@ public class Reservation {
     private String date_envoie;
     private String confirmation;
 
+    public Reservation(){}
+
     public Reservation(String nom, String date_reservation, String heure_reservation, String telephone, String personnes, String commentaire, String date_envoie, String confirmation) {
         this.nom = nom;
         this.date_reservation = date_reservation;
@@ -85,4 +87,20 @@ public class Reservation {
     public void setConfirmation(String confirmation) {
         this.confirmation = confirmation;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "nom='" + nom + '\'' +
+                ", date_reservation='" + date_reservation + '\'' +
+                ", heure_reservation='" + heure_reservation + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", personnes='" + personnes + '\'' +
+                ", commentaire='" + commentaire + '\'' +
+                ", date_envoie='" + date_envoie + '\'' +
+                ", confirmation='" + confirmation + '\'' +
+                '}';
+    }
+
+
 }
