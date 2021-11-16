@@ -61,15 +61,13 @@ public class Reservation_frag extends Fragment {
         aa = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,heure);
         ehour.setAdapter(aa);
 
-
+        //insertion firebase
         boutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("reservation");
-
 
                 String name = enom.getText().toString();
                 String day_res = eday_res.getText().toString();
@@ -77,17 +75,16 @@ public class Reservation_frag extends Fragment {
                 String hour_res = ehour.getSelectedItem().toString();
                 String nbr_pers = enbrpers.getText().toString();
                 String coment = ecomment.getText().toString();
-                String comfirm = "non-comfirmée";
-
+                String comfirm = "";
+                //date du click donc de la prise de reservation
                 DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Date date = new Date();
                 String date_res = format.format(date);
 
-
-                Reservation reservation = new Reservation(name,day_res,phone,hour_res,nbr_pers,coment,date_res,comfirm);
+                Reservation reservation = new Reservation(name,day_res,hour_res,phone,nbr_pers,coment,date_res,comfirm);
                 myRef.push().setValue(reservation);
 
-                Log.d("result",reservation.toString());
+              //  Log.d("result",reservation.toString());
 
                 Toast toast = Toast.makeText(getContext(),"Resevation transmise",Toast.LENGTH_LONG);
                 toast.show();

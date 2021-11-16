@@ -10,7 +10,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_start.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_reservation_.xml" value="0.2403846153846154" />
-        <entry key="app/src/main/res/layout/row_list_res.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/row_list_res.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/vue_reservation.xml" value="0.2755208333333333" />
       </map>
     </option>
   </component>

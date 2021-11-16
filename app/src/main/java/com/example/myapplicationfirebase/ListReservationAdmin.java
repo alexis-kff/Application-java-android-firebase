@@ -41,7 +41,7 @@ public class ListReservationAdmin extends AppCompatActivity {
        liste.setAdapter(myAdapter);
 
 
-     //   Log.d("resul", "adapter"+ aa.toString());
+       // Log.d("resul", "adapter"+ aa.toString());
 
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -56,7 +56,7 @@ public class ListReservationAdmin extends AppCompatActivity {
                     reservations.add(reservation);
                     //Log.d("result", "reservations"+ reservations.toString());
                 }
-                myAdapter.notifyDataSetChanged();
+               myAdapter.notifyDataSetChanged();
 
             }
 
