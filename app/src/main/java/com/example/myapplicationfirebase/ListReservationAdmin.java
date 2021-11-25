@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +46,6 @@ public class ListReservationAdmin extends AppCompatActivity {
 
        // Log.d("resul", "adapter"+ aa.toString());
 
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -52,9 +54,10 @@ public class ListReservationAdmin extends AppCompatActivity {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     Reservation reservation = ds.getValue(Reservation.class);
-                    Log.d("result", "Value is: " + reservation.getNom()+" "+reservation.getDate_reservation()+" "+reservation.getConfirmation());
+                    Log.d("result", "Value is: " + reservation.getNom()+" "+reservation.getDate_reservation()+" "+reservation.getComfirmation());
                     reservations.add(reservation);
                     //Log.d("result", "reservations"+ reservations.toString());
+
                 }
                myAdapter.notifyDataSetChanged();
 

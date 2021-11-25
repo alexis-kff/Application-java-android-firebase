@@ -1,6 +1,9 @@
 package com.example.myapplicationfirebase;
 
-public class Reservation {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Reservation{
     private String nom;
     private String date_reservation;
     private String heure_reservation;
@@ -8,11 +11,11 @@ public class Reservation {
     private String personnes;
     private String commentaire;
     private String date_envoie;
-    private String confirmation;
+    private String comfirmation;
 
     public Reservation(){}
 
-    public Reservation(String nom, String date_reservation, String heure_reservation, String telephone, String personnes, String commentaire, String date_envoie, String confirmation) {
+    public Reservation(String nom, String date_reservation, String heure_reservation, String telephone, String personnes, String commentaire, String date_envoie, String comfirmation) {
         this.nom = nom;
         this.date_reservation = date_reservation;
         this.heure_reservation = heure_reservation;
@@ -20,9 +23,8 @@ public class Reservation {
         this.personnes = personnes;
         this.commentaire = commentaire;
         this.date_envoie = date_envoie;
-        this.confirmation = confirmation;
+        this.comfirmation = comfirmation;
     }
-
 
     public String getNom() {
         return nom;
@@ -80,12 +82,12 @@ public class Reservation {
         this.date_envoie = date_envoie;
     }
 
-    public String getConfirmation() {
-        return confirmation;
+    public String getComfirmation() {
+        return comfirmation;
     }
 
-    public void setConfirmation(String confirmation) {
-        this.confirmation = confirmation;
+    public void setComfirmation(String comfirmation) {
+        this.comfirmation = comfirmation;
     }
 
     @Override
@@ -98,9 +100,7 @@ public class Reservation {
                 ", personnes='" + personnes + '\'' +
                 ", commentaire='" + commentaire + '\'' +
                 ", date_envoie='" + date_envoie + '\'' +
-                ", confirmation='" + confirmation + '\'' +
+                ", comfirmation='" + comfirmation + '\'' +
                 '}';
     }
-
-
 }
