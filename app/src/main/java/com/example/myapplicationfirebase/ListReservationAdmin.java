@@ -3,7 +3,12 @@ package com.example.myapplicationfirebase;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +22,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ListReservationAdmin extends AppCompatActivity {
@@ -39,7 +47,7 @@ public class ListReservationAdmin extends AppCompatActivity {
         liste.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         liste.setLayoutManager(layoutManager);
-
+       //il faudra une classe qui contiendra votre Adapter(AndroidAdapter dans notre cas) pour y faire apelle
        AndroidAdapter myAdapter = new AndroidAdapter(reservations);
        liste.setAdapter(myAdapter);
 
@@ -54,10 +62,9 @@ public class ListReservationAdmin extends AppCompatActivity {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     Reservation reservation = ds.getValue(Reservation.class);
-                    Log.d("result", "Value is: " + reservation.getNom()+" "+reservation.getDate_reservation()+" "+reservation.getComfirmation());
+                    Log.d("result", "données de reservation: " + reservation.getNom()+" "+reservation.getDate_reservation()+" "+reservation.getComfirmation());
                     reservations.add(reservation);
                     //Log.d("result", "reservations"+ reservations.toString());
-
                 }
                myAdapter.notifyDataSetChanged();
 
@@ -71,8 +78,6 @@ public class ListReservationAdmin extends AppCompatActivity {
 
         });
 
-
     }
-
 
 }

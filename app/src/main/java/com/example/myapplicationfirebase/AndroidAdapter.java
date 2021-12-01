@@ -10,10 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.menu.MenuView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -53,8 +55,6 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.MyViewHo
             heure = v.findViewById(R.id.lheure);
             nbr = v.findViewById(R.id.lnbr_pers);
             imageValid = v.findViewById(R.id.imageView);
-
-
        }
 
     }
@@ -72,6 +72,24 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.MyViewHo
     //on insert les données de la table resrevation dans les champ de row_lit_res.xml
     @Override
     public void onBindViewHolder(MyViewHolder holder,int position){
+         //creation slide
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+               // Toast.makeText(ListBox.this, "Item removed", Toast.LENGTH_SHORT).show();
+                //Remove swiped item from list and notify the RecyclerView
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+       // itemTouchHelper.attachToRecyclerView();
+
         holder.nom.setText(reservations.get(position).getNom());
         holder.date.setText(reservations.get(position).getDate_reservation());
         holder.heure.setText(reservations.get(position).getHeure_reservation());
@@ -79,7 +97,7 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.MyViewHo
         String comfirmation = reservations.get(position).getComfirmation();
        // Log.d("couleur", comfirmation);
 
-       Log.d("coul", comfirmation);
+       Log.d("test", comfirmation);
         if (comfirmation == "non-comfirmée"){
             holder.itemView.setBackgroundColor(8);
           Log.d("couleur3", "onBindViewHolder: ");
@@ -91,11 +109,9 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.MyViewHo
             public void onClick(View v) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("reservation");
-                String myRef3 = database.getReference("reservation").getRef().getKey();
-                Log.d("test", myRef3);
                 //addChild.. method permettant d'utiliser les fonction suivante
                 myRef.addChildEventListener(new ChildEventListener() {
-                     // onChildAdded se declanche au click, me permet de recuperer la clef/id neccesaire a un update
+                     // onChildAdded se declanche au click/ajout d'un vue
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         Log.d("test", "onChildAdded: "+snapshot.getKey());
                         String maClef = snapshot.getKey();
@@ -108,6 +124,7 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.MyViewHo
 
                         //recuperation des champ dans vue_reservation.xml
                         View myViev = dialogPlus.getHolderView();
+
                         TextView nom = myViev.findViewById(R.id.textView);
                         TextView date_res = myViev.findViewById(R.id.textView3);
                         TextView heure_res = myViev.findViewById(R.id.textView4);
@@ -133,34 +150,30 @@ public class AndroidAdapter extends RecyclerView.Adapter<AndroidAdapter.MyViewHo
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
-
                                 //hashmap necesaire a transmetre a updatechildren()
                                 HashMap<String,Object> map = new HashMap<>();
-                              //  map.put("commentaire", reservations.get(holder.getAdapterPosition()).getCommentaire());
                                 map.put("comfirmation", "comfirmée");
-                           //     map.put("date_envoie", reservations.get(holder.getAdapterPosition()).getDate_envoie());
-                           //     map.put("date_reservation", reservations.get(holder.getAdapterPosition()).getDate_reservation());
-                          //      map.put("heure_reservation", reservations.get(holder.getAdapterPosition()).getHeure_reservation());
-                            //    map.put("nom", reservations.get(holder.getAdapterPosition()).getNom());
-                              //  map.put("heure_reservation", reservations.get(holder.getAdapterPosition()).getHeure_reservation());
-                                //map.put("telephone", reservations.get(holder.getAdapterPosition()).getTelephone());
+                                /*  map.put("comentaire", reservations.get(holder.getAdapterPosition()).getCommentaire());
+                                map.put("date_envoie", reservations.get(holder.getAdapterPosition()).getDate_envoie());
+                                map.put("date_reservation", reservations.get(holder.getAdapterPosition()).getDate_reservation());
+                                map.put("heure_reservation", reservations.get(holder.getAdapterPosition()).getHeure_reservation());
+                                map.put("nom", reservations.get(holder.getAdapterPosition()).getNom());
+                                map.put("personnes", reservations.get(holder.getAdapterPosition()).getPersonnes());
+                                map.put("telephone", reservations.get(holder.getAdapterPosition()).getTelephone());*/
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef2 = database.getReference("reservation").child(maClef);
                                 myRef2.updateChildren(map);
-                                notifyDataSetChanged();
                                 dialogPlus.dismiss();
-
-
                             }
                         });
                     }
-
+                    //cette fonction se déclanche à l'update
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         Log.d("test", "onChildChanged: ");
-                        notifyDataSetChanged();
+                        Toast toast = Toast.makeText(v.getContext(), "reservation comfirmée",Toast.LENGTH_LONG);
+                        toast.show();
 
                     }
 
